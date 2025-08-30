@@ -12,6 +12,7 @@
     <title>Student Registration System - Manage Student Records</title>
 
     <link href="./output.css" rel="stylesheet">
+    <script src="index.js" defer></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         <!-- Header -->
         <header>
             <h1>🎓 Student Registration System</h1>
-            <p class="description">
+            <p class="mt-5">
                 A comprehensive platform for managing student records with seamless registration,
                 editing, and deletion capabilities. Efficiently organize and maintain student information
                 with our user-friendly interface and robust data validation.
@@ -29,41 +30,72 @@
 
         <!-- nav buttons-->
         <nav class="nav-tabs">
-            <button class="tab-btn active">Registration Form</button>
-            <button class="tab-btn">View Records</button>
+            <button class="tab-btn active" onclick="showTab('registrationTab',this)">Registration Form</button>
+            <button class="tab-btn" onclick="showTab('recordTab',this)">View Records</button>
         </nav>
 
-        <!-- Registration Form -->
-        <div>
-            <div class="form-container">
+        <!-- Registration tab -->
+        <div id="registrationTab" class="tab-content active">
+            <div class="tab-container">
                 <h2>Register New Student</h2>
-                <form action="#" id="studentForm">
+
+                <div class="success-message" id="successMessage">
+                    Student registered successfully! ✅
+                </div>
+
+                <div class="edit-form" id="editForm">
+                    <h3 class="text-amber-500">✏️ Editing Student Record</h3>
+                    <p class="text-amber-800">Make your changes and click "Update Student" to save.</p>
+                </div>
+
+                <!-- Registration form -->
+                <form id="studentForm">
                     <div class="form-group">
                         <div class="form-row">
                             <label for="studentName">Student Name</label>
                             <input type="text" id="studentName" name="studentName" placeholder="Enter full name"
                                 required>
+                            <div class="error-message" id="nameError"></div>
+
                         </div>
+
                         <div class="form-row">
                             <label for="studentID">Student ID</label>
-                            <input type="text" id="studentID" name="studentID" placeholder="Enter student ID" required>
+                            <input type="text" id="studentID" name="studentID" minlength="6" maxlength="6"
+                                placeholder="Enter student ID" required>
+                            <div class="error-message" id="idError"></div>
                         </div>
                         <div class="form-row">
                             <label for="emailAddress">Email Address</label>
                             <input type="email" id="emailAddress" name="emailAddress" placeholder="Enter email adddress"
                                 required>
+                            <div class="error-message" id="emailError"></div>
                         </div>
                         <div class="form-row">
                             <label for="contactNumber">Contact Number</label>
-                            <input type="text" id="contactNumber" name="contactNumber"
+                            <input type="tel" id="contactNumber" name="contactNumber"
                                 placeholder="Enter 10-digit contact number" minlength="10" maxlength="10" required>
+                            <div class="error-message" id="contactError"></div>
                         </div>
                     </div>
 
-                    <div class="flex justify-center">
-                        <button class="register-btn" type="submit">Register Student</button>
-                    </div>  
+                    <div class="flex justify-center gap-5">
+                        <button class="form-btn bg-red-500" type="submit">Register Student</button>
+                        <button type="button" class="form-btn bg-black/60 hidden" id="cancelEdit">Cancel Edit</button>
+                    </div>
                 </form>
+            </div>
+        </div>
+
+        <!-- Record tab -->
+        <div id="recordTab" class="tab-content">
+            <div class="tab-container">
+                <div>
+                    <h2>Student Records</h2>
+                    <div>
+                        <input type="search" name="serchInput" id="serchInput" placeholder="🔍 Search students...">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
