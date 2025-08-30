@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A comprehensive student registration system for managing student records with add, edit, and delete functionality">
+    <meta name="description"
+        content="A comprehensive student registration system for managing student records with add, edit, and delete functionality">
     <meta name="keywords" content="student registration, student management, educational system">
     <meta name="author" content="Vaibhav Kumar">
 
@@ -11,21 +13,60 @@
 
     <link href="./output.css" rel="stylesheet">
 </head>
+
 <body>
+
     <div class="container">
+        <!-- Header -->
         <header>
             <h1>🎓 Student Registration System</h1>
             <p class="description">
-                A comprehensive platform for managing student records with seamless registration, 
-                editing, and deletion capabilities. Efficiently organize and maintain student information 
+                A comprehensive platform for managing student records with seamless registration,
+                editing, and deletion capabilities. Efficiently organize and maintain student information
                 with our user-friendly interface and robust data validation.
             </p>
         </header>
 
+        <!-- nav buttons-->
         <nav class="nav-tabs">
             <button class="tab-btn active">Registration Form</button>
             <button class="tab-btn">View Records</button>
         </nav>
+
+        <!-- Registration Form -->
+        <div>
+            <div class="form-container">
+                <h2>Register New Student</h2>
+                <form action="#" id="studentForm">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label for="studentName">Student Name</label>
+                            <input type="text" id="studentName" name="studentName" placeholder="Enter full name"
+                                required>
+                        </div>
+                        <div class="form-row">
+                            <label for="studentID">Student ID</label>
+                            <input type="text" id="studentID" name="studentID" placeholder="Enter student ID" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="emailAddress">Email Address</label>
+                            <input type="email" id="emailAddress" name="emailAddress" placeholder="Enter email adddress"
+                                required>
+                        </div>
+                        <div class="form-row">
+                            <label for="contactNumber">Contact Number</label>
+                            <input type="text" id="contactNumber" name="contactNumber"
+                                placeholder="Enter 10-digit contact number" minlength="10" maxlength="10" required>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button class="register-btn" type="submit">Register Student</button>
+                    </div>  
+                </form>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>

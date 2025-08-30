@@ -18,35 +18,69 @@ body{
 
 
 .container {
-    @apply max-w-[1200px] mx-auto p-5;
+    @apply max-w-[1200px] mx-auto sm:p-6 p-4;
     
 }
 
 header{
-    @apply bg-white/95 backdrop-blur-md rounded-2xl p-8 mb-8 text-center shadow-[0_8px_32px_rgb(0,0,0,0.1)];
+    @apply bg-white/95 backdrop-blur-md rounded-2xl p-4 mb-8 text-center shadow-[0_8px_32px_rgb(0,0,0,0.1)];
 }
 
 
 h1{
-    @apply text-5xl text-gray-700 mb-2.5 font-bold;
+    @apply text-[clamp(1.6rem,calc(3vw+0.5rem),2.5rem)] text-gray-600 mb-2.5 font-extrabold leading-7;
+}
+
+h2{
+    @apply text-[clamp(1.4rem,calc(2vw+0.6rem),1.8rem)] text-gray-600 mb-2.5 font-bold; 
 }
 
 .description{
-    @apply text-lg text-gray-600 leading-7;
+    @apply text-gray-600 leading-6 mt-5 text-base sm:text-lg font-bold sm:font-medium;
 }
 
 
 .nav-tabs{
-    @apply flex gap-6 justify-center mb-8 
+    @apply flex flex-col sm:flex-row gap-y-4 gap-x-6 justify-center items-center mb-8 
 }
 .tab-btn{
-    @apply bg-white/95 border-none py-3 px-6 rounded-3xl cursor-pointer text-lg font-medium transition-all shadow-[2px_4px_12px_rgb(0,0,0,0.4)] duration-[0.3s] ease-out;
+    @apply bg-white/95 py-3 px-6 rounded-3xl cursor-pointer font-semibold transition-all sm:shadow-[2px_4px_12px_rgb(0,0,0,0.4)] duration-[0.3s] ease-out w-[200px] sm:w-auto;
 }
 
 .tab-btn.active{
-    @apply bg-blue-600 text-white shadow-[0_6px_10px_rgb(183,190,224)] transition-all -translate-y-0.5;
+    @apply bg-blue-600 text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] transition-all -translate-y-0.5;
 }
 
 .tab-btn:hover{
     @apply transition-all -translate-y-0.5 shadow-[0_6px_10px_rgb(0,0,0,0.15)]
 }
+
+
+.form-container{
+    @apply bg-white/95 rounded-2xl p-8 shadow-xl;
+}
+
+.form-group{
+    @apply flex flex-wrap flex-col md:flex-row gap-x-8 gap-y-6 mb-7;
+}
+
+.form-row{
+    @apply w-full md:w-[calc(50%-20px)] space-y-1;
+}
+
+.form-row label{
+    @apply block font-bold;
+}
+
+.form-row label::after{
+    @apply content-["_*"] text-red-500
+}
+
+.form-row input{
+    @apply w-full border border-gray-400 outline-emerald-400 p-2 rounded-lg;
+}
+
+.register-btn{
+    @apply bg-red-500 text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] py-3 px-6 rounded-3xl cursor-pointer font-semibold
+}
+
