@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+
 *{
     margin:0;
     padding:0;
@@ -12,7 +13,7 @@
 body{
     font-family: "Poppins", sans-serif;
     font-style: normal;
-    @apply min-h-screen bg-gradient-to-tr from-purple-200 to-blue-500
+    @apply min-h-screen bg-gradient-to-r from-indigo-400 to-blue-400
 }
 
 
@@ -32,4 +33,20 @@ h1{
 
 .description{
     @apply text-lg text-gray-600 leading-7;
+}
+
+
+.nav-tabs{
+    @apply flex gap-6 justify-center mb-8 
+}
+.tab-btn{
+    @apply bg-white/95 border-none py-3 px-6 rounded-3xl cursor-pointer text-lg font-medium transition-all shadow-[2px_4px_12px_rgb(0,0,0,0.4)] duration-[0.3s] ease-out;
+}
+
+.tab-btn.active{
+    @apply bg-blue-600 text-white shadow-[0_6px_10px_rgb(183,190,224)] transition-all -translate-y-0.5;
+}
+
+.tab-btn:hover{
+    @apply transition-all -translate-y-0.5 shadow-[0_6px_10px_rgb(0,0,0,0.15)]
 }
