@@ -1,8 +1,10 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import "tailwindcss";
 
+:root{
+    --record-grid-cols : minmax(40px,60px) minmax(120px,1fr) minmax(100px,130px) minmax(120px,1fr) minmax(100px,130px) minmax(100px,150px);
+}
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +15,7 @@
 body {
     font-family: "Poppins", sans-serif;
     font-style: normal;
-    @apply min-h-screen bg-gradient-to-br from-violet-200 to-purple-600
+    @apply min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]
 }
 
 
@@ -28,20 +30,20 @@ header {
 
 /* text-[clamp(1.6rem,calc(3vw+0.5rem),2.5rem)] */
 h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-600 mb-3 font-extrabold;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-600 mb-3 font-bold ;
 }
 
 /* text-[clamp(1.4rem,calc(2vw+0.6rem),1.8rem)] */
 h2 {
-    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-600 font-bold mb-5;
+    @apply text-xl md:text-2xl lg:text-3xl text-gray-600 font-bold mb-5;
 }
 
 h3 {
-    @apply text-sm sm:text-base md:text-lg lg:text-xl font-semibold
+    @apply text-xs sm:text-sm md:text-base lg:text-lg font-semibold
 }
 
-p {
-    @apply text-xs sm:text-sm md:text-base lg:text-lg font-bold sm:font-medium leading-5 md:leading-7
+.description {
+    @apply text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-5 md:leading-7;
 }
 
 .nav-tabs {
@@ -62,7 +64,7 @@ p {
 
 
 .tab-container {
-    @apply bg-amber-50 rounded-2xl p-8 shadow-xl;
+    @apply bg-amber-50 rounded-2xl p-4 md:p-8 shadow-xl;
 }
 
 .form-group {
@@ -102,7 +104,7 @@ p {
 }
 
 .success-message {
-    @apply bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-5 hidden border-l-4 border-green-600;
+    @apply bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-5 border-l-4 border-green-600;
 }
 
 .edit-form {
@@ -110,12 +112,13 @@ p {
 }
 
 .tab-content {
-    display: none;
-    animation: fadeIn 0.5s ease ;
+    @apply hidden animate-[fadeIn_0.5s_ease]
 }
+
 .tab-content.active{
-    display: block;
+    @apply block;
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -126,4 +129,61 @@ p {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.search-input input{
+    @apply border-2 border-gray-400 p-2 pl-3 rounded-2xl
+    w-full sm:w-[min(300px,40vw)]; 
+}
+
+.records-grid{
+    @apply mt-4 bg-white rounded-lg shadow-2xl overflow-auto h-[32em];
+}
+
+.records-table {
+    @apply w-full;
+}
+
+.records-table th {
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-2.5 text-center font-bold text-xs md:text-sm lg:text-base
+}
+
+.records-table td{
+    @apply py-3 px-2.5 border-b-gray-100 text-center
+}
+
+.records-body tr:nth-child(odd) {
+    @apply bg-gray-100;
+}
+
+.records-table tr:hover{
+    @apply bg-blue-200/60
+}
+
+.action-buttons {
+    @apply flex gap-3 justify-center
+}
+
+.btn-secondary {
+    @apply bg-green-600 py-1 px-2 rounded-md text-white text-sm font-bold cursor-pointer;
+}
+
+.btn-secondary:hover{
+    @apply bg-green-700
+}
+.btn-danger {
+    @apply bg-red-500 py-1 px-2 rounded-md text-white text-sm font-bold cursor-pointer;
+}
+
+.btn-danger:hover{
+    @apply bg-red-700
+}
+
+
+.no-records{
+    @apply min-h-32 justify-center items-center bg-white shadow-2xl mt-5 rounded-lg;
+}
+
+.no-match-record{
+    @apply justify-center mt-5 text-lg;
 }

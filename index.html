@@ -21,7 +21,7 @@
         <!-- Header -->
         <header>
             <h1>🎓 Student Registration System</h1>
-            <p class="mt-5">
+            <p class="description">
                 A comprehensive platform for managing student records with seamless registration,
                 editing, and deletion capabilities. Efficiently organize and maintain student information
                 with our user-friendly interface and robust data validation.
@@ -30,8 +30,8 @@
 
         <!-- nav buttons-->
         <nav class="nav-tabs">
-            <button class="tab-btn active" onclick="showTab('registrationTab',this)">Registration Form</button>
-            <button class="tab-btn" onclick="showTab('recordTab',this)">View Records</button>
+            <button class="tab-btn active" id="registrationBtn" onclick="showTab('registrationTab','registrationBtn')">Registration Form</button>
+            <button class="tab-btn" id="recordBtn" onclick="showTab('recordTab','recordBtn')">View Records</button>
         </nav>
 
         <!-- Registration tab -->
@@ -39,13 +39,13 @@
             <div class="tab-container">
                 <h2>Register New Student</h2>
 
-                <div class="success-message" id="successMessage">
-                    Student registered successfully! ✅
-                </div>
-
                 <div class="edit-form" id="editForm">
                     <h3 class="text-amber-500">✏️ Editing Student Record</h3>
                     <p class="text-amber-800">Make your changes and click "Update Student" to save.</p>
+                </div>
+
+                <div class="success-message hidden" id="successMessage">
+                    
                 </div>
 
                 <!-- Registration form -->
@@ -80,8 +80,8 @@
                     </div>
 
                     <div class="flex justify-center gap-5">
-                        <button class="form-btn bg-red-500" type="submit">Register Student</button>
-                        <button type="button" class="form-btn bg-black/60 hidden" id="cancelEdit">Cancel Edit</button>
+                        <button class="form-btn bg-red-500" id="submitBtn" type="submit">Register Student</button>
+                        <button type="button" id="cancelBtn" class="form-btn bg-black/60 hidden" id="cancelEdit">Cancel Edit</button>
                     </div>
                 </form>
             </div>
@@ -90,15 +90,41 @@
         <!-- Record tab -->
         <div id="recordTab" class="tab-content">
             <div class="tab-container">
-                <div>
+                <div class="flex flex-col sm:flex-row justify-start sm:justify-between">
                     <h2>Student Records</h2>
-                    <div>
-                        <input type="search" name="serchInput" id="serchInput" placeholder="🔍 Search students...">
+                    <div class="search-input">
+                        <input type="search" name="searchInput" id="searchInput" placeholder="🔍 Search students...">
                     </div>
+                </div>
+
+                <div class="records-grid" id="recordsGrid">
+                    <table class="records-table" id="recordsTable">
+                        <thead>
+                            <tr>
+                                <th>Sno.</th>
+                                <th>Student Name</th>
+                                <th>Student ID</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recordsBody" class="records-body">
+                            <!-- Records will be populated here -->
+                        </tbody>
+                    </table>
+
+                    <div class="no-match-record hidden" id="noMatchRecords">
+                        <p> 📚 No matching student found !!</p>
+                    </div>
+                </div>
+
+                <div class="no-records" id="noRecords">
+                    <p>📚 No student records found. Register your first student to get started!</p>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

@@ -1,25 +1,71 @@
 let currentTab = "registrationTab";      // by default: Registration tab
-let currentTabBtn = document.querySelector(".tab-btn.active"); // default button
 const studentsRecord = [];
 let validata = false;
+let editingIndex = -1;
+
+// Load students from localStorage on page load
+window.addEventListener('load', function () {
+    loadStudents();
+    displayRecords();
+});
 
 // Tab functionality
-function showTab(tabId, btn) {
-    currentTabBtn.classList.remove("active");
-    btn.classList.add("active");
+function showTab(tabId, tabBtn) {
+    if (currentTab === tabId) {
+        return
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById(tabBtn).classList.add('active');
 
     document.getElementById(currentTab).classList.remove("active");
     document.getElementById(tabId).classList.add("active");
 
     currentTab = tabId;
-    currentTabBtn = btn;
+
+    if (tabId === 'recordTab') {
+        displayRecords();
+    }
+    // else{
+    //     resetForm();
+    // }
 }
 
+// Save students to localStorage
+function saveStudents() {
+    localStorage.setItem('students', JSON.stringify(studentsRecord));
+}
+
+// Load students from localStorage
+function loadStudents() {
+    const storedStudents = JSON.parse(localStorage.getItem('students'));
+    if (storedStudents) {
+        studentsRecord.push(...storedStudents)
+    }
+}
+
+// Show success message
+function showSuccessMessage(message) {
+    const successDiv = document.getElementById('successMessage');
+    successDiv.textContent = '✅ '+ message 
+    successDiv.classList.remove('hidden');
+    setTimeout(() => {
+        successDiv.classList.add('hidden');
+    }, 3000);
+}
+
+function cancelEdit(){
+    document.getElementById('editForm').style.display = '';
+    document.getElementById('submitBtn').textContent = 'Register Student';
+    document.getElementById('cancelBtn').classList.add('hidden');
+}
 
 // Form submission and Validation
 document.getElementById('studentForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     const formData = {
         name: document.getElementById('studentName').value.trim(),
         id: document.getElementById('studentID').value.trim(),
@@ -30,16 +76,26 @@ document.getElementById('studentForm').addEventListener('submit', function (e) {
     if (!ValidateForm(formData))
         return;
 
-    studentsRecord.push(formData);
-    localStorage.setItem('studentsRecord', JSON.stringify(studentsRecord));
-    showSuccessMessage('Student registered successfully');
+    if (editingIndex >= 0) {
+        // Update existing record
+        studentsRecord[editingIndex] = formData;
+        showSuccessMessage('Student record updated successfully');
+        cancelEdit();
+    } else {
+        // Add new record
+        studentsRecord.push(formData);
+        showSuccessMessage('Student registered successfully');
+    }
+
+    saveStudents();
     this.reset();
 
 })
 
+
 // Validating the Form Data
 function ValidateForm(formData) {
-    const {name, id, email, contact} = formData
+    const { name, id, email, contact } = formData
     let isValid = true;
 
     clearAllErrors();
@@ -53,15 +109,22 @@ function ValidateForm(formData) {
     }
 
     // Validate name
-     const nameRegex = /^[a-zA-Z\s]+$/;
+    const nameRegex = /^[a-zA-Z\s]+$/;
     if (!nameRegex.test(name.trim()) && name.trim().length > 0) {
         showError('studentName', 'nameError', 'Please enter a valid name (letters and spaces only)');
         isValid = false;
     }
 
     // Validate student ID
-    if (id.length !== 6) {
+    const idRegex = /^[a-zA-Z0-9]/
+    if (!idRegex.test(id)) {
         showError('studentID', 'idError', 'Field must contain only 6 characters');
+        isValid = false;
+    }
+    else if (studentsRecord.some(student => {
+        student.id === id;
+    })) {
+        showError('studentID', 'idError', 'Student ID already exists');
         isValid = false;
     }
 
@@ -73,7 +136,7 @@ function ValidateForm(formData) {
     }
 
     // Validate contact
-    const contactRegex = /^\d{10}$/; 
+    const contactRegex = /^\d{10}$/;
     if (!contactRegex.test(contact)) {
         showError('contactNumber', 'contactError', 'Field must contain only 10 digits');
         isValid = false;
@@ -97,4 +160,104 @@ function clearAllErrors() {
     document.querySelectorAll('.error').forEach(ele => {
         ele.classList.remove("error");
     });
+}
+
+
+// Display records
+function displayRecords() {
+    const recordsBody = document.getElementById('recordsBody');
+    const noRecords = document.getElementById('noRecords');
+    const recordsGrid = document.getElementById('recordsGrid');
+
+    if (studentsRecord.length === 0) {
+
+        recordsGrid.classList.add('hidden');
+        noRecords.classList.add('flex')
+        return;
+    }
+
+    recordsGrid.classList.remove('hidden');
+    noRecords.classList.remove('flex');
+    noRecords.classList.add('hidden');
+
+    recordsBody.innerHTML = '';
+    studentsRecord.forEach((student, index) => {
+        const row = document.createElement('tr');
+        row.classList.add('records-body')
+        row.innerHTML = `
+            <td>${index + 1}.</td>
+            <td class="max-w-[200px] break-words">
+                ${student.name}
+            </td>
+            <td>${student.id}</td>
+            <td class="max-w-[300px] break-words whitespace-normal">
+                ${student.email}
+            </td>
+            <td>${student.contact}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="editStudent(${index})">Edit</button>
+                    <button class="btn-danger" onclick="deleteStudent(${index})">Delete</button>
+                </div>
+            </td>
+        `
+        recordsBody.appendChild(row);
+    })
+}
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('input', function () {
+    const searchStudent = searchInput.value.toLowerCase();
+    const rows = document.querySelectorAll('#recordsBody tr'); // or divs if using grid
+    const noMatchRecords = document.getElementById('noMatchRecords');
+
+    let records = false;
+
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (!searchStudent || text.includes(searchStudent)) {
+            row.classList.remove('hidden');
+            records = true;
+        }
+
+        else {
+            row.classList.add('hidden');
+        }
+    });
+
+    // Toggle “No records” message
+    if (records) {
+        noMatchRecords.classList.add('hidden');
+    } else {
+        noMatchRecords.classList.remove('hidden');
+        noMatchRecords.classList.add('flex');
+    }
+
+});
+
+
+// Edit student
+function editStudent(index) {
+    const student = studentsRecord[index];
+    editingIndex = index;
+
+    // Fill form with student data
+    document.getElementById('studentName').value = student.name;
+    document.getElementById('studentID').value = student.id;
+    document.getElementById('emailAddress').value = student.email;
+    document.getElementById('contactNumber').value = student.contact;
+
+    console.log(student);
+
+    // Update form appearance
+    document.getElementById('editForm').style.display = 'block';
+    document.getElementById('submitBtn').textContent = 'Update Student';
+    document.getElementById('cancelBtn').classList.remove('hidden');
+
+    // Switch to registration tab
+    showTab('registrationTab', 'registrationBtn');
+
+    clearAllErrors();
 }
