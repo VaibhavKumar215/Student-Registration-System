@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 :root{
-    --record-grid-cols : minmax(40px,60px) minmax(120px,1fr) minmax(100px,130px) minmax(120px,1fr) minmax(100px,130px) minmax(100px,150px);
+    --record-grid-cols : 60px minmax(120px,1fr) minmax(100px,130px) minmax(120px,1fr) minmax(100px,130px) minmax(100px,150px);
 }
 * {
     margin: 0;
@@ -11,11 +11,15 @@
     box-sizing: border-box;
 }
 
+ /* Scroll track width */
+html {
+    scrollbar-width: thin; 
+}
 
 body {
     font-family: "Poppins", sans-serif;
     font-style: normal;
-    @apply min-h-screen bg-[linear-gradient(135deg,#667eea_0%,#764ba2_100%)]
+    @apply min-h-screen bg-[linear-gradient(135deg,rgb(255,230,248)_0%,rgb(200,151,249)_100%)] cursor-default;
 }
 
 
@@ -30,16 +34,16 @@ header {
 
 /* text-[clamp(1.6rem,calc(3vw+0.5rem),2.5rem)] */
 h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-600 mb-3 font-bold ;
+    @apply text-2xl sm:text-3xl md:text-4xl text-gray-600 mb-3 font-bold ;
 }
 
 /* text-[clamp(1.4rem,calc(2vw+0.6rem),1.8rem)] */
 h2 {
-    @apply text-xl md:text-2xl lg:text-3xl text-gray-600 font-bold mb-5;
+    @apply text-xl md:text-2xl lg:text-3xl text-red-500 font-bold mb-4 lg:mb-6;
 }
 
 h3 {
-    @apply text-xs sm:text-sm md:text-base lg:text-lg font-semibold
+    @apply text-sm md:text-base lg:text-lg font-semibold
 }
 
 .description {
@@ -47,15 +51,15 @@ h3 {
 }
 
 .nav-tabs {
-    @apply flex flex-col sm:flex-row gap-y-4 gap-x-6 justify-center items-center mb-8
+    @apply flex flex-col sm:flex-row gap-6 justify-center items-center mb-8
 }
 
 .tab-btn {
-    @apply bg-white/80 py-3 px-6 rounded-3xl cursor-pointer font-semibold transition-all sm:shadow-[2px_4px_12px_rgb(0,0,0,0.4)] duration-[0.3s] ease-out w-[200px] sm:w-auto;
+    @apply bg-white/80 py-2.5 px-4 text-xs sm:text-base rounded-3xl cursor-pointer font-semibold transition-all sm:shadow-[4px_4px_8px_rgb(0,0,0,0.5)] duration-[0.3s] ease-out min-w-40;
 }
 
 .tab-btn.active {
-    @apply bg-blue-600 text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] transition-all -translate-y-0.5;
+    @apply bg-blue-400 text-white sm:shadow-[0_6px_8px_rgb(255,255,255)] transition-all -translate-y-0.5;
 }
 
 .tab-btn:hover {
@@ -64,15 +68,15 @@ h3 {
 
 
 .tab-container {
-    @apply bg-amber-50 rounded-2xl p-4 md:p-8 shadow-xl;
+    @apply w-full bg-amber-50 rounded-2xl p-4 md:p-8 shadow-xl;
 }
 
 .form-group {
-    @apply flex flex-wrap flex-col md:flex-row gap-x-8 gap-y-5 mb-7;
+    @apply flex flex-wrap flex-col lg:flex-row gap-x-8 gap-y-3 lg:gap-y-5 mb-7;
 }
 
 .form-row {
-    @apply w-full md:w-[calc(50%-20px)] space-y-1;
+    @apply w-full lg:w-[calc(50%-20px)] space-y-1;
 }
 
 .form-row label {
@@ -84,7 +88,7 @@ h3 {
 }
 
 .form-row input {
-    @apply w-full border-2 border-gray-300 outline-emerald-400 p-2 rounded-lg text-xs sm:text-base md:text-lg;
+    @apply w-full border-2 bg-white border-gray-300 outline-emerald-400 p-1 pl-2 rounded-lg text-xs sm:text-base md:text-lg;
 }
 
 .error {
@@ -92,7 +96,7 @@ h3 {
 }
 
 .form-row .error-message {
-    @apply text-red-500 text-xs font-bold hidden;
+    @apply text-red-500 text-xs sm:text-sm font-bold hidden;
 }
 
 .form-btn {
@@ -100,11 +104,11 @@ h3 {
 }
 
 .form-btn:hover {
-    @apply shadow-none
+    @apply shadow-none bg-red-700
 }
 
 .success-message {
-    @apply bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-5 border-l-4 border-green-600;
+    @apply bg-green-100 text-green-700 p-5 rounded-lg mb-5 border-l-4 border-green-600;
 }
 
 .edit-form {
@@ -112,7 +116,7 @@ h3 {
 }
 
 .tab-content {
-    @apply hidden animate-[fadeIn_0.5s_ease]
+    @apply hidden animate-[fadeIn_0.5s_ease] w-full
 }
 
 .tab-content.active{
@@ -133,11 +137,12 @@ h3 {
 
 .search-input input{
     @apply border-2 border-gray-400 p-2 pl-3 rounded-2xl
-    w-full sm:w-[min(300px,40vw)]; 
+    w-[min(100%,22rem)] sm:w-[min(300px,40vw)] text-xs sm:text-sm bg-white; 
 }
 
 .records-grid{
-    @apply mt-4 bg-white rounded-lg shadow-2xl overflow-auto h-[32em];
+    scrollbar-width: thin;
+    @apply mt-4 bg-white rounded-lg shadow-2xl overflow-auto  h-[80vh] md:h-[65vh] xl:h-[75vh];
 }
 
 .records-table {
@@ -149,9 +154,12 @@ h3 {
 }
 
 .records-table td{
-    @apply py-3 px-2.5 border-b-gray-100 text-center
+    @apply py-3 px-2.5 border-b-gray-100 text-center text-xs sm:text-sm lg:text-base
 }
 
+.records-body tr:nth-child(even) {
+    @apply bg-gray-300;
+}
 .records-body tr:nth-child(odd) {
     @apply bg-gray-100;
 }
@@ -161,29 +169,73 @@ h3 {
 }
 
 .action-buttons {
-    @apply flex gap-3 justify-center
+    @apply flex gap-3 justify-center flex-col lg:flex-row
 }
 
 .btn-secondary {
-    @apply bg-green-600 py-1 px-2 rounded-md text-white text-sm font-bold cursor-pointer;
+    @apply bg-green-500 py-1 px-2 rounded-md text-white text-xs sm:text-sm font-bold cursor-pointer;
 }
 
 .btn-secondary:hover{
     @apply bg-green-700
 }
 .btn-danger {
-    @apply bg-red-500 py-1 px-2 rounded-md text-white text-sm font-bold cursor-pointer;
+    @apply bg-red-500 py-1 px-2 rounded-md text-white text-xs sm:text-sm font-bold cursor-pointer outline-hidden;
 }
 
 .btn-danger:hover{
     @apply bg-red-700
 }
 
+.btn-primary {
+    @apply bg-black py-1 px-2 rounded-md text-white text-sm font-bold cursor-pointer;
+}
+
+.btn-primary:hover{
+    @apply bg-gray-700
+}
 
 .no-records{
-    @apply min-h-32 justify-center items-center bg-white shadow-2xl mt-5 rounded-lg;
+    @apply h-32 justify-center items-center bg-white shadow-2xl mt-5 rounded-lg text-center;
 }
 
 .no-match-record{
-    @apply justify-center mt-5 text-lg;
+    @apply justify-center mt-5;
+}
+
+
+.modal-overlay {
+    @apply border m-auto rounded-md transform duration-300 ease-out;
+}
+
+.modal-overlay::backdrop{
+    @apply backdrop-blur-sm bg-black/40
+}
+
+
+.modal {
+    @apply bg-white text-center p-5
+}
+
+.modal-title{
+    @apply text-red-500 mb-2 text-3xl
+}
+
+.modal-message {
+    @apply text-gray-700 font-medium text-base
+}
+
+.modal-student-info {
+    @apply bg-gray-100 p-3.5 border-l-red-500 rounded-lg mt-2 text-start space-y-0.5
+}
+
+.student-info{
+    @apply font-bold inline-block mr-2.5 
+}
+.modal-actions {
+    @apply flex flex-wrap flex-row gap-6 justify-center mt-6;
+}
+
+.btn {
+    @apply p-2 text-base 
 }

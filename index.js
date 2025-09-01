@@ -49,18 +49,22 @@ function loadStudents() {
 // Show success message
 function showSuccessMessage(message) {
     const successDiv = document.getElementById('successMessage');
-    successDiv.textContent = '✅ '+ message 
+    successDiv.textContent = '✅ ' + message
     successDiv.classList.remove('hidden');
     setTimeout(() => {
         successDiv.classList.add('hidden');
     }, 3000);
 }
 
-function cancelEdit(){
+//Cancel the Edit
+function cancelEdit() {
+    editingIndex = -1;
     document.getElementById('editForm').style.display = '';
     document.getElementById('submitBtn').textContent = 'Register Student';
     document.getElementById('cancelBtn').classList.add('hidden');
+    clearAllErrors();
 }
+
 
 // Form submission and Validation
 document.getElementById('studentForm').addEventListener('submit', function (e) {
@@ -93,7 +97,7 @@ document.getElementById('studentForm').addEventListener('submit', function (e) {
 })
 
 
-// Validating the Form Data
+// Validate the Form Data
 function ValidateForm(formData) {
     const { name, id, email, contact } = formData
     let isValid = true;
@@ -117,13 +121,12 @@ function ValidateForm(formData) {
 
     // Validate student ID
     const idRegex = /^[a-zA-Z0-9]/
-    if (!idRegex.test(id)) {
-        showError('studentID', 'idError', 'Field must contain only 6 characters');
+    if (!idRegex.test(id) && id.length !== 8) {
+        showError('studentID', 'idError', 'Field must contain only 8 characters');
         isValid = false;
     }
-    else if (studentsRecord.some(student => {
-        student.id === id;
-    })) {
+
+    if (editingIndex === -1 && studentsRecord.some(student => student.id == id )) {
         showError('studentID', 'idError', 'Student ID already exists');
         isValid = false;
     }
@@ -145,6 +148,7 @@ function ValidateForm(formData) {
     return isValid;
 }
 
+//Show the errors
 function showError(fieldId, errorId, message) {
     const field = document.getElementById(fieldId);
     const errorDiv = document.getElementById(errorId);
@@ -153,6 +157,7 @@ function showError(fieldId, errorId, message) {
     errorDiv.style.display = 'block';
 }
 
+//Clear all the errors
 function clearAllErrors() {
     document.querySelectorAll('.error-message').forEach(ele => {
         ele.style.display = "none";
@@ -172,6 +177,7 @@ function displayRecords() {
     if (studentsRecord.length === 0) {
 
         recordsGrid.classList.add('hidden');
+        noRecords.classList.remove('hidden')
         noRecords.classList.add('flex')
         return;
     }
@@ -186,11 +192,11 @@ function displayRecords() {
         row.classList.add('records-body')
         row.innerHTML = `
             <td>${index + 1}.</td>
-            <td class="max-w-[200px] break-words">
+            <td class="min-w-24 break-words">
                 ${student.name}
             </td>
             <td>${student.id}</td>
-            <td class="max-w-[300px] break-words whitespace-normal">
+            <td class="min-w-32 break-all">
                 ${student.email}
             </td>
             <td>${student.contact}</td>
@@ -205,12 +211,12 @@ function displayRecords() {
     })
 }
 
-// Search functionality
+// Search Student record
 const searchInput = document.getElementById('searchInput');
 
 searchInput.addEventListener('input', function () {
     const searchStudent = searchInput.value.toLowerCase();
-    const rows = document.querySelectorAll('#recordsBody tr'); // or divs if using grid
+    const rows = document.querySelectorAll('#recordsBody tr');
     const noMatchRecords = document.getElementById('noMatchRecords');
 
     let records = false;
@@ -238,7 +244,7 @@ searchInput.addEventListener('input', function () {
 });
 
 
-// Edit student
+// Edit student record
 function editStudent(index) {
     const student = studentsRecord[index];
     editingIndex = index;
@@ -248,8 +254,6 @@ function editStudent(index) {
     document.getElementById('studentID').value = student.id;
     document.getElementById('emailAddress').value = student.email;
     document.getElementById('contactNumber').value = student.contact;
-
-    console.log(student);
 
     // Update form appearance
     document.getElementById('editForm').style.display = 'block';
@@ -261,3 +265,54 @@ function editStudent(index) {
 
     clearAllErrors();
 }
+
+//Delete student info
+function deleteStudent(index) {
+    const modal = document.getElementById('deleteModal')
+    deleteIndex = index;
+    const student = studentsRecord[index];
+
+    document.getElementById('studentInfo').innerHTML = `
+        <p><span class="student-info">Student Name :</span>${student.name}</p>
+        <p><span class="student-info">Student ID :  </span>${student.id}</p>
+        <p><span class="student-info">Email :  </span>${student.email}</p>
+        <p><span class="student-info">Contact :  </span>${student.contact}</p>
+    `;
+
+    //Show modal
+    modal.showModal();
+    modal.classList.replace('scale-0','scale-100')
+    document.body.style.overflow = 'hidden'
+}
+
+//Conform delete  
+function confirmDelete() {
+    if (deleteIndex >= 0) {
+        studentsRecord.splice(deleteIndex,1);
+        saveStudents();
+        displayRecords();
+        closeDeleteModal();
+        setTimeout(() => {
+            window.alert("✅ Successfully Deleted")
+        }, 500);
+        
+    }
+}
+
+
+//Close the modal
+function closeDeleteModal() {
+    deleteIndex = -1;
+    const modal = document.getElementById('deleteModal');
+    modal.close();
+    document.body.style.overflow = '';
+    modal.classList.replace('scale-100','scale-0')
+}
+
+// Close modal when clicking outside
+document.getElementById('deleteModal').addEventListener('click', function (e) {
+
+    if (e.target === this) {
+        closeDeleteModal();
+    }
+});
