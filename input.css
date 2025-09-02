@@ -142,7 +142,7 @@ h3 {
 
 .records-grid{
     scrollbar-width: thin;
-    @apply mt-4 bg-white rounded-lg shadow-2xl overflow-auto  h-[80vh] md:h-[65vh] xl:h-[75vh];
+    @apply mt-4 bg-white rounded-lg shadow-2xl overflow-auto  max-h-[80vh] md:max-h-[65vh] xl:max-h-[75vh];
 }
 
 .records-table {

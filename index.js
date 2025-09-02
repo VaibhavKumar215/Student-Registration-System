@@ -2,6 +2,7 @@ let currentTab = "registrationTab";      // by default: Registration tab
 const studentsRecord = [];
 let validata = false;
 let editingIndex = -1;
+let deleteIndex = -1;
 
 // Load students from localStorage on page load
 window.addEventListener('load', function () {
@@ -9,7 +10,7 @@ window.addEventListener('load', function () {
     displayRecords();
 });
 
-// Tab functionality
+// Tab button functionality
 function showTab(tabId, tabBtn) {
     if (currentTab === tabId) {
         return
