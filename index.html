@@ -36,7 +36,7 @@
         </nav>
 
         <!-- Registration tab -->
-        <div id="registrationTab" class="tab-content active">
+        <section id="registrationTab" class="tab-content active">
             <div class="tab-container">
                 <h2>Register New Student</h2>
 
@@ -63,7 +63,7 @@
                         <!-- Student ID -->
                         <div class="form-row">
                             <label for="studentID">Student ID</label>
-                            <input type="number" id="studentID" name="studentID" placeholder="Enter Student ID" required>
+                            <input type="text" id="studentID" name="studentID" placeholder="Enter student Id" required>
                             <div class="error-message" id="idError"></div>
                         </div>
                         <!-- Email Address -->
@@ -89,15 +89,15 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </section>
 
         <!-- Record tab -->
-        <div id="recordTab" class="tab-content">
+        <section id="recordTab" class="tab-content">
             <div class="tab-container">
                 <div class="flex flex-col sm:flex-row sm:justify-between w-full">
                     <h2>Students Record</h2>
                     <div class="search-input">
-                        <input type="search" name="searchInput" id="searchInput" placeholder="🔍 Search students...">
+                        <input type="search" name="searchInput" id="searchInput" placeholder="🔍 Search students..." aria-label="Search students">
                     </div>
                 </div>
 
@@ -128,14 +128,15 @@
                     <p>📚 No student records found. Register your first student to get started!</p>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Delete Confirmation Modal -->
-        <dialog class="modal-overlay scale-0" id="deleteModal">
+        <dialog class="modal-overlay scale-0" id="deleteModal" aria-labelledby="modalTitle" 
+  aria-describedby="modalMessage">
             <div class="modal" id="modal">
                 <div class="modal-header">
-                    <h2 class="modal-title">Confirm Delete</h2>
-                    <p class="modal-message">Are you sure you want to delete this student record? </p>
+                    <h2 class="modal-title" id="modalTitle">Confirm Delete</h2>
+                    <p class="modal-message" id="modalMessage">Are you sure you want to delete this student record? </p>
                 </div>
 
                 <div class="modal-student-info" id="studentInfo">
