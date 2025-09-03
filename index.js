@@ -39,6 +39,7 @@ function saveStudents() {
 // Load students from localStorage
 function loadStudents() {
     const storedStudents = JSON.parse(localStorage.getItem('students'));
+    studentsRecord.length = 0;
     if (storedStudents) {
         studentsRecord.push(...storedStudents)
     }
@@ -121,12 +122,14 @@ function ValidateForm(formData) {
     }
 
     // Validate student ID
-    if (isNaN(id)) {
+    const idRegex = /^\d+$/
+    console.log(idRegex.test(id));
+    if (!idRegex.test(id)) {
         showError('studentID', 'idError', 'Field must contain only numbers');
         isValid = false;
     }
 
-    if (studentsRecord.some((student, index) => student.id == id && editingIndex !== index)) {
+    else if (studentsRecord.some((student, index) => student.id == id && editingIndex !== index)) {
         showError('studentID', 'idError', 'Student ID already exists');
         isValid = false;
     }
@@ -201,8 +204,8 @@ function displayRecords(records = studentsRecord) {
             <td>${student.contact}</td>
             <td>
                 <div class="action-buttons">
-                    <button class="btn-secondary" onclick="editStudent(${index})">Edit</button>
-                    <button class="btn-danger" onclick="deleteStudent(${index})">Delete</button>
+                    <button class="btn-secondary edit-btn" data-index="${index}">Edit</button>
+                    <button class="btn-danger delete-btn" data-index="${index}">Delete</button>
                 </div>
             </td>
         `
@@ -248,6 +251,14 @@ searchInput.addEventListener('input', function () {
 
 });
 
+//Edit and delete event listener
+recordsBody.addEventListener('click', e => {
+    const btn = e.target;
+    const index = btn.dataset.index;
+    if (btn.classList.contains('edit-btn')) editStudent(index);
+    if (btn.classList.contains('delete-btn')) deleteStudent(index);
+});
+
 
 // Edit student record
 function editStudent(index) {
@@ -287,10 +298,10 @@ function deleteStudent(index) {
     //Show modal
     modal.showModal();
     modal.classList.replace('scale-0', 'scale-100')
-    document.body.style.overflow = 'hidden'
+    document.body.classList.add('overflow-hidden')
 }
 
-//Conform delete  
+//Confirm delete  
 function confirmDelete() {
     if (deleteIndex >= 0) {
         studentsRecord.splice(deleteIndex, 1);
@@ -310,7 +321,7 @@ function closeDeleteModal() {
     deleteIndex = -1;
     const modal = document.getElementById('deleteModal');
     modal.close();
-    document.body.style.overflow = '';
+    document.body.classList.remove("overflow-hidden");
     modal.classList.replace('scale-100', 'scale-0')
 }
 
@@ -332,12 +343,5 @@ function updateScrollbar() {
     }
     else {
         recordsGrid.classList.remove('overflow-y-scroll');
-    }
-
-    if (table.scrollWidth > recordsGrid.clientWidth) {
-        recordsGrid.classList.add('overflow-x-scroll');
-    }
-    else {
-        recordsGrid.classList.remove('overflow-x-scroll');
     }
 }
