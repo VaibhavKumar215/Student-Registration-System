@@ -32,12 +32,10 @@ header {
     @apply bg-amber-50/80 backdrop-blur-md rounded-2xl p-4 mb-8 text-center shadow-[0_8px_32px_rgb(0,0,0,0.1)];
 }
 
-/* text-[clamp(1.6rem,calc(3vw+0.5rem),2.5rem)] */
 h1 {
     @apply text-2xl sm:text-3xl md:text-4xl text-gray-600 mb-3 font-bold ;
 }
 
-/* text-[clamp(1.4rem,calc(2vw+0.6rem),1.8rem)] */
 h2 {
     @apply text-xl md:text-2xl lg:text-3xl text-red-500 font-bold mb-4 lg:mb-6;
 }
@@ -100,7 +98,7 @@ h3 {
 }
 
 .form-btn {
-    @apply text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] py-3 px-6 rounded-3xl cursor-pointer font-semibold transition-shadow duration-500
+    @apply text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] py-2.5 px-4 sm:py-3 sm:px-6 rounded-3xl cursor-pointer font-semibold text-sm sm:text-base transition-shadow duration-500
 }
 
 .form-btn:hover {
@@ -137,24 +135,25 @@ h3 {
 
 .search-input input{
     @apply border-2 border-gray-400 p-2 pl-3 rounded-2xl
-    w-[min(100%,22rem)] sm:w-[min(300px,40vw)] text-xs sm:text-sm bg-white; 
+    w-full sm:w-[min(300px,40vw)] text-xs sm:text-sm bg-white; 
 }
 
 .records-grid{
     scrollbar-width: thin;
-    @apply mt-4 bg-white rounded-lg shadow-2xl overflow-auto  max-h-[80vh] md:max-h-[65vh] xl:max-h-[75vh];
+    @apply mt-4 bg-white rounded-lg shadow-2xl max-h-[80vh] md:max-h-[65vh] xl:max-h-[75vh] min-h-60;
+
 }
 
 .records-table {
-    @apply w-full;
+    @apply w-full h-full text-center;
 }
 
 .records-table th {
-    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-2.5 text-center font-bold text-xs md:text-sm lg:text-base
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-2.5 font-bold text-xs md:text-sm lg:text-base border-r border-r-white
 }
 
 .records-table td{
-    @apply py-3 px-2.5 border-b-gray-100 text-center text-xs sm:text-sm lg:text-base
+    @apply py-3 px-2.5 border-b-gray-100 text-xs sm:text-sm lg:text-base border-r border-r-white
 }
 
 .records-body tr:nth-child(even) {
@@ -169,18 +168,18 @@ h3 {
 }
 
 .action-buttons {
-    @apply flex gap-3 justify-center flex-col lg:flex-row
+    @apply flex gap-3 justify-center flex-col md:flex-row
 }
 
 .btn-secondary {
-    @apply bg-green-500 py-1 px-2 rounded-md text-white text-xs sm:text-sm font-bold cursor-pointer;
+    @apply bg-green-500 py-1 px-0.5 sm:px-2 rounded-md text-white text-xs sm:text-sm font-bold cursor-pointer;
 }
 
 .btn-secondary:hover{
     @apply bg-green-700
 }
 .btn-danger {
-    @apply bg-red-500 py-1 px-2 rounded-md text-white text-xs sm:text-sm font-bold cursor-pointer outline-hidden;
+    @apply bg-red-500 py-1 px-0.5 sm:px-2 rounded-md text-white text-xs sm:text-sm font-bold cursor-pointer outline-hidden;
 }
 
 .btn-danger:hover{
@@ -237,5 +236,5 @@ h3 {
 }
 
 .btn {
-    @apply p-2 text-base 
+    @apply p-2 text-base w-full
 }

@@ -45,31 +45,35 @@
                     <p class="text-amber-800">Make your changes and click "Update Student" to save.</p>
                 </div>
 
-                <div class="success-message text-sm sm:text-xl hidden" id="successMessage"></div>
+                <div class="success-message text-sm sm:text-xl hidden" id="successMessage">
+                    <!-- Successfully Message  -->
+                </div>
 
                 <!-- Registration form -->
                 <form id="studentForm">
                     <div class="form-group">
                         <div class="form-row">
+                            <!-- Student Name -->
                             <label for="studentName">Student Name</label>
                             <input type="text" id="studentName" name="studentName" placeholder="Enter full name"
                                 required>
                             <div class="error-message" id="nameError"></div>
 
                         </div>
-
+                        <!-- Student ID -->
                         <div class="form-row">
                             <label for="studentID">Student ID</label>
-                            <input type="text" id="studentID" name="studentID" minlength="8" maxlength="8"
-                                placeholder="Enter student ID" required>
+                            <input type="number" id="studentID" name="studentID" placeholder="Enter Student ID" required>
                             <div class="error-message" id="idError"></div>
                         </div>
+                        <!-- Email Address -->
                         <div class="form-row">
                             <label for="emailAddress">Email Address</label>
                             <input type="email" id="emailAddress" name="emailAddress" placeholder="Enter email adddress"
                                 required>
                             <div class="error-message" id="emailError"></div>
                         </div>
+                        <!-- Contact Number -->
                         <div class="form-row">
                             <label for="contactNumber">Contact Number</label>
                             <input type="tel" id="contactNumber" name="contactNumber"
@@ -77,10 +81,10 @@
                             <div class="error-message" id="contactError"></div>
                         </div>
                     </div>
-
-                    <div class="flex justify-center gap-5">
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap justify-center gap-5">
                         <button class="form-btn bg-red-500" id="submitBtn" type="submit">Register Student</button>
-                        <button type="button" id="cancelBtn" class="form-btn bg-black/60 hidden" id="cancelEdit">Cancel
+                        <button type="button" id="cancelBtn" class="form-btn bg-black/60 hidden" onclick="cancelEdit()">Cancel
                             Edit</button>
                     </div>
                 </form>

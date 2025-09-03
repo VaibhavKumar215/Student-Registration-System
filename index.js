@@ -29,9 +29,6 @@ function showTab(tabId, tabBtn) {
     if (tabId === 'recordTab') {
         displayRecords();
     }
-    // else{
-    //     resetForm();
-    // }
 }
 
 // Save students to localStorage
@@ -63,6 +60,9 @@ function cancelEdit() {
     document.getElementById('editForm').style.display = '';
     document.getElementById('submitBtn').textContent = 'Register Student';
     document.getElementById('cancelBtn').classList.add('hidden');
+    //Reset form input value
+    document.getElementById('studentForm').reset();
+
     clearAllErrors();
 }
 
@@ -121,13 +121,12 @@ function ValidateForm(formData) {
     }
 
     // Validate student ID
-    const idRegex = /^[a-zA-Z0-9]/
-    if (!idRegex.test(id) && id.length !== 8) {
-        showError('studentID', 'idError', 'Field must contain only 8 characters');
+    if (isNaN(id)) {
+        showError('studentID', 'idError', 'Field must contain only numbers');
         isValid = false;
     }
 
-    if (editingIndex === -1 && studentsRecord.some(student => student.id == id )) {
+    if (studentsRecord.some((student, index) => student.id == id && editingIndex !== index)) {
         showError('studentID', 'idError', 'Student ID already exists');
         isValid = false;
     }
@@ -142,7 +141,7 @@ function ValidateForm(formData) {
     // Validate contact
     const contactRegex = /^\d{10}$/;
     if (!contactRegex.test(contact)) {
-        showError('contactNumber', 'contactError', 'Field must contain only 10 digits');
+        showError('contactNumber', 'contactError', 'Field must contain only 10 digit numbers');
         isValid = false;
     }
 
@@ -170,7 +169,7 @@ function clearAllErrors() {
 
 
 // Display records
-function displayRecords() {
+function displayRecords(records = studentsRecord) {
     const recordsBody = document.getElementById('recordsBody');
     const noRecords = document.getElementById('noRecords');
     const recordsGrid = document.getElementById('recordsGrid');
@@ -188,9 +187,8 @@ function displayRecords() {
     noRecords.classList.add('hidden');
 
     recordsBody.innerHTML = '';
-    studentsRecord.forEach((student, index) => {
+    records.forEach((student, index) => {
         const row = document.createElement('tr');
-        row.classList.add('records-body')
         row.innerHTML = `
             <td>${index + 1}.</td>
             <td class="min-w-24 break-words">
@@ -210,37 +208,43 @@ function displayRecords() {
         `
         recordsBody.appendChild(row);
     })
+
+    //Update the scroll
+    updateScrollbar()
 }
 
 // Search Student record
 const searchInput = document.getElementById('searchInput');
+const noMatchRecords = document.getElementById('noMatchRecords');
 
 searchInput.addEventListener('input', function () {
-    const searchStudent = searchInput.value.toLowerCase();
-    const rows = document.querySelectorAll('#recordsBody tr');
-    const noMatchRecords = document.getElementById('noMatchRecords');
+    if(studentsRecord.length === 0){
+        return;
+    }
 
-    let records = false;
+    const searchStudent = searchInput.value.trim().toLowerCase();
+    let records;
 
-    rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (!searchStudent || text.includes(searchStudent)) {
-            row.classList.remove('hidden');
-            records = true;
-        }
+    if (!searchStudent) {
+        displayRecords();
+        records = false;
+    } 
+    else {
+        const filterRecords = studentsRecord.filter(student =>
+            Object.values(student).some(value =>
+                value.toLowerCase().includes(searchStudent)
+            )
+        );
 
-        else {
-            row.classList.add('hidden');
-        }
-    });
+        displayRecords(filterRecords);
+        records = filterRecords.length === 0;
+    }
+
 
     // Toggle “No records” message
-    if (records) {
-        noMatchRecords.classList.add('hidden');
-    } else {
-        noMatchRecords.classList.remove('hidden');
-        noMatchRecords.classList.add('flex');
-    }
+    noMatchRecords.classList.toggle('hidden', !records);
+    noMatchRecords.classList.toggle('flex', records);
+
 
 });
 
@@ -282,21 +286,21 @@ function deleteStudent(index) {
 
     //Show modal
     modal.showModal();
-    modal.classList.replace('scale-0','scale-100')
+    modal.classList.replace('scale-0', 'scale-100')
     document.body.style.overflow = 'hidden'
 }
 
 //Conform delete  
 function confirmDelete() {
     if (deleteIndex >= 0) {
-        studentsRecord.splice(deleteIndex,1);
+        studentsRecord.splice(deleteIndex, 1);
         saveStudents();
         displayRecords();
         closeDeleteModal();
         setTimeout(() => {
             window.alert("✅ Successfully Deleted")
         }, 500);
-        
+
     }
 }
 
@@ -307,7 +311,7 @@ function closeDeleteModal() {
     const modal = document.getElementById('deleteModal');
     modal.close();
     document.body.style.overflow = '';
-    modal.classList.replace('scale-100','scale-0')
+    modal.classList.replace('scale-100', 'scale-0')
 }
 
 // Close modal when clicking outside
@@ -317,3 +321,23 @@ document.getElementById('deleteModal').addEventListener('click', function (e) {
         closeDeleteModal();
     }
 });
+
+// Update scrollbar dynamically
+function updateScrollbar() {
+    const recordsGrid = document.getElementById('recordsGrid');
+    const table = document.getElementById('recordsTable');
+
+    if (table.scrollHeight > recordsGrid.clientHeight) {
+        recordsGrid.classList.add('overflow-y-scroll');
+    }
+    else {
+        recordsGrid.classList.remove('overflow-y-scroll');
+    }
+
+    if (table.scrollWidth > recordsGrid.clientWidth) {
+        recordsGrid.classList.add('overflow-x-scroll');
+    }
+    else {
+        recordsGrid.classList.remove('overflow-x-scroll');
+    }
+}
