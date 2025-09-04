@@ -58,7 +58,7 @@ function showSuccessMessage(message) {
 //Cancel the Edit
 function cancelEdit() {
     editingIndex = -1;
-    document.getElementById('editForm').style.display = '';
+    document.getElementById('editForm').classList.add("hidden");
     document.getElementById('submitBtn').textContent = 'Register Student';
     document.getElementById('cancelBtn').classList.add('hidden');
     //Reset form input value
@@ -128,7 +128,7 @@ function ValidateForm(formData) {
         isValid = false;
     }
 
-    else if (studentsRecord.some((student, index) => student.id == id && editingIndex !== index)) {
+    else if (studentsRecord.some((student, index) => student.id == id && editingIndex != index)) {
         showError('studentID', 'idError', 'Student ID already exists');
         isValid = false;
     }
@@ -269,7 +269,7 @@ function editStudent(index) {
     document.getElementById('contactNumber').value = student.contact;
 
     // Update form appearance
-    document.getElementById('editForm').style.display = 'block';
+    document.getElementById('editForm').classList.remove('hidden');
     document.getElementById('submitBtn').textContent = 'Update Student';
     document.getElementById('cancelBtn').classList.remove('hidden');
 
