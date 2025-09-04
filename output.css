@@ -46,8 +46,6 @@
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
-    --text-4xl: 2.25rem;
-    --text-4xl--line-height: calc(2.5 / 2.25);
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -241,6 +239,9 @@
   .hidden {
     display: none;
   }
+  .inline {
+    display: inline;
+  }
   .table {
     display: table;
   }
@@ -321,6 +322,12 @@
       justify-content: space-between;
     }
   }
+  .sm\:text-base {
+    @media (width >= 40rem) {
+      font-size: var(--text-base);
+      line-height: var(--tw-leading, var(--text-base--line-height));
+    }
+  }
   .sm\:text-lg {
     @media (width >= 40rem) {
       font-size: var(--text-lg);
@@ -380,34 +387,31 @@ h1,h2 {
   font-weight: var(--font-weight-bold);
 }
 h1 {
-  margin-bottom: calc(var(--spacing) * 3);
-  font-size: var(--text-2xl);
-  line-height: var(--tw-leading, var(--text-2xl--line-height));
+  margin-bottom: calc(var(--spacing) * 2);
+  font-size: var(--text-xl);
+  line-height: var(--tw-leading, var(--text-xl--line-height));
   color: var(--color-gray-600);
   @media (width >= 40rem) {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
   @media (width >= 48rem) {
-    font-size: var(--text-4xl);
-    line-height: var(--tw-leading, var(--text-4xl--line-height));
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
 }
 h2 {
   margin-bottom: calc(var(--spacing) * 4);
-  font-size: var(--text-xl);
-  line-height: var(--tw-leading, var(--text-xl--line-height));
+  font-size: var(--text-base);
+  line-height: var(--tw-leading, var(--text-base--line-height));
   color: var(--color-red-500);
+  @media (width >= 40rem) {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
   @media (width >= 48rem) {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
-  }
-  @media (width >= 64rem) {
-    margin-bottom: calc(var(--spacing) * 6);
-  }
-  @media (width >= 64rem) {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
 }
 h3 {
@@ -436,16 +440,8 @@ h3 {
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
   @media (width >= 48rem) {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
-  }
-  @media (width >= 48rem) {
     --tw-leading: calc(var(--spacing) * 7);
     line-height: calc(var(--spacing) * 7);
-  }
-  @media (width >= 64rem) {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
   }
 }
 .nav-tabs {
@@ -483,8 +479,8 @@ h3 {
   --tw-ease: var(--ease-out);
   transition-timing-function: var(--ease-out);
   @media (width >= 40rem) {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
   }
 }
 .tab-btn.active {
@@ -561,20 +557,22 @@ h3 {
     width: calc(50% - 20px);
   }
 }
-.form-row label {
-  display: block;
-  font-size: var(--text-sm);
-  line-height: var(--tw-leading, var(--text-sm--line-height));
-  --tw-font-weight: var(--font-weight-bold);
-  font-weight: var(--font-weight-bold);
+.form-row label, .form-row input {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading, var(--text-xs--line-height));
   @media (width >= 40rem) {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  @media (width >= 48rem) {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
   }
-  @media (width >= 48rem) {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
-  }
+}
+.form-row label {
+  display: block;
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
 }
 .form-row label::after {
   color: var(--color-red-500);
@@ -590,17 +588,7 @@ h3 {
   background-color: var(--color-white);
   padding: calc(var(--spacing) * 1);
   padding-left: calc(var(--spacing) * 2);
-  font-size: var(--text-xs);
-  line-height: var(--tw-leading, var(--text-xs--line-height));
   outline-color: var(--color-emerald-400);
-  @media (width >= 40rem) {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
-  }
-  @media (width >= 48rem) {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
-  }
 }
 .error {
   border-color: var(--color-red-500) !important;
@@ -624,8 +612,8 @@ h3 {
   border-radius: var(--radius-3xl);
   padding-inline: calc(var(--spacing) * 4);
   padding-block: calc(var(--spacing) * 2.5);
-  font-size: var(--text-sm);
-  line-height: var(--tw-leading, var(--text-sm--line-height));
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading, var(--text-xs--line-height));
   --tw-font-weight: var(--font-weight-semibold);
   font-weight: var(--font-weight-semibold);
   color: var(--color-white);
@@ -641,8 +629,8 @@ h3 {
     padding-block: calc(var(--spacing) * 3);
   }
   @media (width >= 40rem) {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
   }
   @media (width >= 40rem) {
     --tw-shadow: 0 6px 10px var(--tw-shadow-color, rgb(183,190,224));
@@ -666,7 +654,6 @@ h3 {
 }
 .edit-form {
   margin-bottom: calc(var(--spacing) * 5);
-  display: none;
   border-radius: var(--radius-xl);
   border-style: var(--tw-border-style);
   border-width: 2px;
@@ -697,7 +684,7 @@ h3 {
   scrollbar-width: thin;
   margin-top: calc(var(--spacing) * 4);
   max-height: 80vh;
-  min-height: calc(var(--spacing) * 60);
+  min-height: calc(var(--spacing) * 40);
   overflow-x: auto;
   border-radius: var(--radius-lg);
   background-color: var(--color-white);
@@ -740,10 +727,6 @@ h3 {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
-  @media (width >= 64rem) {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
-  }
 }
 .records-table td {
   border-right-style: var(--tw-border-style);
@@ -754,13 +737,9 @@ h3 {
   padding-block: calc(var(--spacing) * 3);
   font-size: var(--text-xs);
   line-height: var(--tw-leading, var(--text-xs--line-height));
-  @media (width >= 40rem) {
+  @media (width >= 48rem) {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
-  }
-  @media (width >= 64rem) {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
   }
 }
 .records-body tr:nth-child(even) {
@@ -931,8 +910,6 @@ h3 {
 .btn {
   width: 100%;
   padding: calc(var(--spacing) * 2);
-  font-size: var(--text-base);
-  line-height: var(--tw-leading, var(--text-base--line-height));
   @media (width >= 40rem) {
     width: auto;
   }

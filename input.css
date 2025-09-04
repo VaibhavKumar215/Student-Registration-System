@@ -38,11 +38,11 @@ h1,h2 {
 }
 
 h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl text-gray-600 mb-3;
+    @apply text-xl sm:text-2xl md:text-3xl text-gray-600 mb-2;
 }
 
 h2 {
-    @apply text-xl md:text-2xl lg:text-3xl text-red-500 mb-4 lg:mb-6;
+    @apply text-base sm:text-xl md:text-2xl text-red-500 mb-4;
 }
 
 h3 {
@@ -50,7 +50,7 @@ h3 {
 }
 
 .description {
-    @apply text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-5 md:leading-7;
+    @apply text-xs sm:text-sm font-medium leading-5 md:leading-7;
 }
 
 
@@ -60,7 +60,7 @@ h3 {
 }
 
 .tab-btn {
-    @apply bg-white/80 py-2.5 px-4 text-xs sm:text-base rounded-3xl cursor-pointer font-semibold transition-all shadow-[4px_4px_8px_rgb(0,0,0,0.5)] duration-[0.3s] ease-out min-w-40;
+    @apply bg-white/80 py-2.5 px-4 text-xs sm:text-sm rounded-3xl cursor-pointer font-semibold transition-all shadow-[4px_4px_8px_rgb(0,0,0,0.5)] duration-[0.3s] ease-out min-w-40;
 }
 
 .tab-btn.active {
@@ -106,8 +106,12 @@ h3 {
     @apply w-full lg:w-[calc(50%-20px)] space-y-1;
 }
 
+.form-row label, .form-row input{
+    @apply text-xs sm:text-sm md:text-base
+}
+
 .form-row label {
-    @apply block font-bold text-sm sm:text-base md:text-lg;
+    @apply block font-bold;
 }
 
 .form-row label::after {
@@ -115,7 +119,7 @@ h3 {
 }
 
 .form-row input {
-    @apply w-full border-2 bg-white border-gray-300 outline-emerald-400 p-1 pl-2 rounded-lg text-xs sm:text-base md:text-lg;
+    @apply w-full border-2 bg-white border-gray-300 outline-emerald-400 p-1 pl-2 rounded-lg;
 }
 
 .error {
@@ -127,7 +131,7 @@ h3 {
 }
 
 .form-btn {
-    @apply text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] py-2.5 px-4 sm:py-3 sm:px-6 rounded-3xl cursor-pointer font-semibold text-sm sm:text-base transition-shadow duration-500
+    @apply text-white sm:shadow-[0_6px_10px_rgb(183,190,224)] py-2.5 px-4 sm:py-3 sm:px-6 rounded-3xl cursor-pointer font-semibold text-xs sm:text-sm transition-shadow duration-500
 }
 
 .form-btn:hover {
@@ -139,7 +143,7 @@ h3 {
 }
 
 .edit-form {
-    @apply bg-yellow-100 border-2 border-yellow-400 rounded-xl p-5 mb-5 hidden;
+    @apply bg-yellow-100 border-2 border-yellow-400 rounded-xl p-5 mb-5;
 }
 
 
@@ -153,7 +157,7 @@ h3 {
 /* Records Table */
 .records-grid{
     scrollbar-width: thin;
-    @apply mt-4 bg-white rounded-lg shadow-2xl max-h-[80vh] md:max-h-[65vh] xl:max-h-[75vh] min-h-60 overflow-x-auto;
+    @apply mt-4 bg-white rounded-lg shadow-2xl max-h-[80vh] md:max-h-[65vh] xl:max-h-[75vh] min-h-40 overflow-x-auto;
 
 }
 
@@ -162,11 +166,11 @@ h3 {
 }
 
 .records-table th {
-    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-2.5 font-bold text-xs md:text-sm lg:text-base border-r border-r-white sticky top-0 z-10;
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3.5 px-2.5 font-bold text-xs md:text-sm border-r border-r-white sticky top-0 z-10;
 }
 
 .records-table td{
-    @apply py-3 px-2.5 border-b-gray-100 text-xs sm:text-sm lg:text-base border-r border-r-white
+    @apply py-3 px-2.5 border-b-gray-100 text-xs md:text-sm border-r border-r-white
 }
 
 .records-body tr:nth-child(even) {
@@ -255,5 +259,5 @@ h3 {
 }
 
 .btn {
-    @apply p-2 text-base w-full sm:w-auto
+    @apply p-2 w-full sm:w-auto
 }
