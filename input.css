@@ -27,6 +27,7 @@ body {
     @apply max-w-[1200px] mx-auto sm:p-6 p-4;
 }
 
+
 /* Header */
 header {
     @apply bg-amber-50/80 backdrop-blur-md rounded-2xl p-4 mb-8 text-center shadow-[0_8px_32px_rgb(0,0,0,0.1)];
@@ -52,17 +53,18 @@ h3 {
     @apply text-xs sm:text-sm md:text-base lg:text-lg font-medium leading-5 md:leading-7;
 }
 
+
 /* Navigation Tabs */
 .nav-tabs {
-    @apply flex flex-col sm:flex-row gap-6 justify-center items-center mb-8
+    @apply flex flex-col sm:flex-row gap-4 justify-center items-center mb-8
 }
 
 .tab-btn {
-    @apply bg-white/80 py-2.5 px-4 text-xs sm:text-base rounded-3xl cursor-pointer font-semibold transition-all sm:shadow-[4px_4px_8px_rgb(0,0,0,0.5)] duration-[0.3s] ease-out min-w-40;
+    @apply bg-white/80 py-2.5 px-4 text-xs sm:text-base rounded-3xl cursor-pointer font-semibold transition-all shadow-[4px_4px_8px_rgb(0,0,0,0.5)] duration-[0.3s] ease-out min-w-40;
 }
 
 .tab-btn.active {
-    @apply bg-blue-400 text-white sm:shadow-[0_6px_8px_rgb(255,255,255)] transition-all -translate-y-0.5;
+    @apply bg-blue-400 text-white shadow-[0_6px_8px_rgb(255,255,255)] transition-all -translate-y-0.5;
 }
 
 .tab-btn:hover {

@@ -454,7 +454,7 @@ h3 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--spacing) * 6);
+  gap: calc(var(--spacing) * 4);
   @media (width >= 40rem) {
     flex-direction: row;
   }
@@ -473,6 +473,8 @@ h3 {
   line-height: var(--tw-leading, var(--text-xs--line-height));
   --tw-font-weight: var(--font-weight-semibold);
   font-weight: var(--font-weight-semibold);
+  --tw-shadow: 4px 4px 8px var(--tw-shadow-color, rgb(0,0,0,0.5));
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   transition-property: all;
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   transition-duration: var(--tw-duration, var(--default-transition-duration));
@@ -484,23 +486,17 @@ h3 {
     font-size: var(--text-base);
     line-height: var(--tw-leading, var(--text-base--line-height));
   }
-  @media (width >= 40rem) {
-    --tw-shadow: 4px 4px 8px var(--tw-shadow-color, rgb(0,0,0,0.5));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
 }
 .tab-btn.active {
   --tw-translate-y: calc(var(--spacing) * -0.5);
   translate: var(--tw-translate-x) var(--tw-translate-y);
   background-color: var(--color-blue-400);
   color: var(--color-white);
+  --tw-shadow: 0 6px 8px var(--tw-shadow-color, rgb(255,255,255));
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   transition-property: all;
   transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
   transition-duration: var(--tw-duration, var(--default-transition-duration));
-  @media (width >= 40rem) {
-    --tw-shadow: 0 6px 8px var(--tw-shadow-color, rgb(255,255,255));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
 }
 .tab-btn:hover {
   --tw-translate-y: calc(var(--spacing) * -0.5);

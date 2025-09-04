@@ -123,7 +123,6 @@ function ValidateForm(formData) {
 
     // Validate student ID
     const idRegex = /^\d+$/
-    console.log(idRegex.test(id));
     if (!idRegex.test(id)) {
         showError('studentID', 'idError', 'Field must contain only numbers');
         isValid = false;
@@ -247,8 +246,6 @@ searchInput.addEventListener('input', function () {
     // Toggle “No records” message
     noMatchRecords.classList.toggle('hidden', !records);
     noMatchRecords.classList.toggle('flex', records);
-
-
 });
 
 //Edit and delete event listener
