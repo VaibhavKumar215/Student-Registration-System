@@ -1,24 +1,26 @@
+<!-- Github link : https://github.com/VaibhavKumar215/Student-Registration-System.git -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A comprehensive student registration system for managing student records with add, edit, and delete functionality">
+    <meta name="description" content="A comprehensive student registration system for managing student records with add, edit, and delete functionality">
     <meta name="keywords" content="student registration system, student management system, educational system">
     <meta name="author" content="Vaibhav Kumar">
 
     <title>Student Registration System - Manage Student Records</title>
 
     <link href="./output.css" rel="stylesheet">
+
     <script src="index.js" defer></script>
 </head>
 
 <body>
-
     <div class="container">
-        <!-- Header -->
+
+        <!-- HEADER -->
         <header>
             <h1>🎓 Student Registration System</h1>
             <p class="description">
@@ -28,52 +30,60 @@
             </p>
         </header>
 
-        <!-- nav buttons-->
+
+        <!-- NAVIGATION (Tabs) -->
+
+        <!-- Two buttons toggle between Registration Form and Records -->
         <nav class="nav-tabs">
             <button class="tab-btn active" id="registrationBtn"
                 onclick="showTab('registrationTab','registrationBtn')">Registration Form</button>
             <button class="tab-btn" id="recordBtn" onclick="showTab('recordTab','recordBtn')">View Records</button>
         </nav>
 
-        <!-- Registration tab -->
+
+        <!-- REGISTRATION TAB -->
         <section id="registrationTab" class="tab-content active">
             <div class="tab-container">
                 <h2>Register New Student</h2>
 
+                <!-- Shown only when user is editing an existing record -->
                 <div class="edit-form text-sm hidden" id="editForm">
                     <h3 class="text-amber-500">✏️ Editing Student Record</h3>
                     <p class="text-amber-800">Make your changes and click "Update Student" to save.</p>
                 </div>
 
+                <!-- Success message area (hidden by default) -->
                 <div class="success-message text-sm sm:text-lg hidden" id="successMessage">
-                    <!-- Successfully Message  -->
+                    <!-- Success messages will be injected here by JS -->
                 </div>
 
-                <!-- Registration form -->
+                <!-- STUDENT FORM -->
                 <form id="studentForm">
                     <div class="form-group">
                         <div class="form-row">
-                            <!-- Student Name -->
+                            <!-- Student Name Input -->
                             <label for="studentName">Student Name</label>
-                            <input type="text" id="studentName" name="studentName" placeholder="Enter full name"
+                            <input type="text" id="studentName" name="studentName" placeholder="Enter Full Name"
                                 required>
                             <div class="error-message" id="nameError"></div>
-
                         </div>
-                        <!-- Student ID -->
+
+                        <!-- Student ID Input -->
                         <div class="form-row">
                             <label for="studentID">Student ID</label>
-                            <input type="text" id="studentID" name="studentID" placeholder="Enter student Id" required>
+                            <input type="text" id="studentID" name="studentID" placeholder="Enter Student ID" required>
                             <div class="error-message" id="idError"></div>
                         </div>
-                        <!-- Email Address -->
+
+                        <!-- Email Address Input -->
                         <div class="form-row">
                             <label for="emailAddress">Email Address</label>
-                            <input type="email" id="emailAddress" name="emailAddress" placeholder="Enter email adddress"
+                            <input type="email" id="emailAddress" name="emailAddress" placeholder="Enter Email Address"
                                 required>
                             <div class="error-message" id="emailError"></div>
                         </div>
-                        <!-- Contact Number -->
+
+                        <!-- Contact Number Input -->
                         <div class="form-row">
                             <label for="contactNumber">Contact Number</label>
                             <input type="tel" id="contactNumber" name="contactNumber"
@@ -81,26 +91,33 @@
                             <div class="error-message" id="contactError"></div>
                         </div>
                     </div>
-                    <!-- Action Buttons -->
+
+                    <!-- Form Buttons -->
                     <div class="flex flex-wrap justify-center gap-5">
+                        <!-- Register Button/Update Button -->
                         <button class="form-btn bg-red-500" id="submitBtn" type="submit">Register Student</button>
-                        <button type="button" id="cancelBtn" class="form-btn bg-black/60 hidden" onclick="cancelEdit()">Cancel
-                            Edit</button>
+                        <!-- Cancel Edit Button (hidden until editing) -->
+                        <button type="button" id="cancelBtn" class="form-btn bg-black/60 hidden"
+                            onclick="cancelEdit()">Cancel Edit</button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- Record tab -->
+
+        <!-- RECORD TAB -->
         <section id="recordTab" class="tab-content">
             <div class="tab-container">
                 <div class="flex flex-col sm:flex-row sm:justify-between w-full">
                     <h2>Students Record</h2>
+                    <!-- Search bar to filter records -->
                     <div class="search-input">
-                        <input type="search" name="searchInput" id="searchInput" placeholder="🔍 Search students..." aria-label="Search students">
+                        <input type="search" name="searchInput" id="searchInput" placeholder="🔍 Search students..."
+                            aria-label="Search students">
                     </div>
                 </div>
 
+                <!-- Table for displaying records -->
                 <div class="records-grid" id="recordsGrid">
                     <table class="records-table" id="recordsTable">
                         <thead>
@@ -113,36 +130,42 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-
                         <tbody id="recordsBody" class="records-body">
-                            <!-- Records will be populated here -->
+                            <!-- Student records will be dynamically injected by JS -->
                         </tbody>
                     </table>
 
+                    <!-- Shown when search yields no matches -->
                     <div class="no-match-record text-sm sm:text-xl hidden" id="noMatchRecords">
                         <p> 📚 No matching student found <span class="text-red-500">!!</span></p>
                     </div>
                 </div>
 
+                <!-- Shown when there are no records at all -->
                 <div class="no-records text-sm sm:text-lg" id="noRecords">
                     <p>📚 No student records found. Register your first student to get started!</p>
                 </div>
             </div>
         </section>
 
-        <!-- Delete Confirmation Modal -->
-        <dialog class="modal-overlay scale-0" id="deleteModal" aria-labelledby="modalTitle" 
-  aria-describedby="modalMessage">
+
+        <!-- DELETE CONFIRMATION MODAL -->
+
+        <!-- Dialog shown when user clicks "Delete button" -->
+        <dialog class="modal-overlay scale-0" id="deleteModal" aria-labelledby="modalTitle"
+            aria-describedby="modalMessage">
             <div class="modal" id="modal">
                 <div class="modal-header">
                     <h2 class="modal-title" id="modalTitle">Confirm Delete</h2>
                     <p class="modal-message" id="modalMessage">Are you sure you want to delete this student record? </p>
                 </div>
 
+                <!-- Student details (to confirm before deletion) -->
                 <div class="modal-student-info" id="studentInfo">
-                    <!-- Student details will be populated here -->
+                    <!-- Details will be injected by JS -->
                 </div>
 
+                <!-- Confirmation buttons -->
                 <div class="modal-actions">
                     <button type="submit" class="tab-btn btn-danger btn" onclick="confirmDelete()">Yes, Delete</button>
                     <button type="button" class="tab-btn btn-primary btn" onclick="closeDeleteModal()">Cancel</button>
