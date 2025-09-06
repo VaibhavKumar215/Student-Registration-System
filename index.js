@@ -1,7 +1,6 @@
 // -------------------- GLOBAL VARIABLES --------------------
 let currentTab = "registrationTab";   // Default active tab: Registration
 const studentsRecord = [];            // Stores all student records
-let validata = false;                 // (Unused? can remove if not needed)
 let editingIndex = -1;                // Tracks index of student being edited (-1 = none)
 let deleteIndex = -1;                 // Tracks index of student to be deleted (-1 = none)
 
